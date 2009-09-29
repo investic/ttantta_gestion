@@ -1,0 +1,68 @@
+<?php
+include_once('ttantta_gestion.features.inc');
+
+
+/**
+ * Implementation of hook_init().
+ */
+function ttantta_gestion_init() {
+  drupal_add_css(drupal_get_path('module', 'ttantta_gestion'). '/ttantta_gestion.css');
+}
+
+/**
+ * Implementation of hook_mas_bloques_gestion().
+ */
+
+function ttantta_gestion_mas_bloques_gestion() {
+ $valores['gestion'] = theme('ttantta_gestion_gestion', 'gestion');
+ $valores['contenido'] = theme('ttantta_gestion_contenido', 'gestion');
+ return $valores;
+}
+
+
+/**
+ * Implementation of hook_theme().
+ */
+function ttantta_gestion_theme() {
+  $path = drupal_get_path('module', 'ttantta_gestion') ;
+  $theme['ttantta_gestion_gestion']= array(
+    'template' => 'ttantta_gestion_gestion',
+    'path' => $path,
+  );
+  $theme['ttantta_gestion_inicio_rapido']= array(
+    'template' => 'ttantta_gestion_inicio_rapido',
+    'path' => $path,
+  );
+  $theme['ttantta_gestion_estadisticas']= array(
+    'template' => 'ttantta_gestion_estadisticas',
+    'path' => $path,
+  );
+  $theme['ttantta_gestion_contenido']= array(
+    'template' => 'ttantta_gestion_contenido',
+    'path' => $path,
+  );
+  $theme['ttantta_gestion_menu']= array(
+    'template' => 'ttantta_gestion_menu',
+    'path' => $path,
+  );
+
+  return $theme;
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function ttantta_gestion_menu() {
+  $items['gestion'] = array(
+    'title' => 'Gestión',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ttantta_gestion_form_bloques'),
+    'access arguments' => array('administer panel gestion'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 10,
+    'file' => 'ttantta_gestion.admin.inc',
+  );
+  return $items;
+}
+
+
